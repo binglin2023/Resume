@@ -1,0 +1,12 @@
+{
+  "name": "my-resume",
+  "version": "1.0.0",
+  "description": "Resume single-file builder",
+  "private": true,
+  "scripts": {
+    "build-single": "node ./scripts/build-single.js"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}
