@@ -1,0 +1,314 @@
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.resume-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 头部样式 */
+header {
+    background: linear-gradient(135deg, #2c3e50, #4a69bd);
+    color: white;
+    padding: 40px;
+    position: relative;
+}
+
+.profile-info {
+    display: flex;
+    /* align-items: center; */
+    padding: 0 30px;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    object-fit: cover;
+}
+
+.profile-text {
+    width: 600px;
+    margin-left: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name {
+    display: flex;
+    align-items: self-start;
+    padding: 10px 0;
+    position: relative;
+}
+
+.name::after {
+    content: '';
+    position: absolute;
+    bottom: 30px;
+    right: -5px;
+    width: 50px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.7);
+    transform: rotate(-45deg);
+}
+
+.lianxi {
+    display: flex;
+    align-items: self-end;
+    position: relative;
+}
+
+.lianxi::before {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: -5px;
+    width: 50px;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.7);
+    transform: rotate(-45deg);
+}
+
+.lianxi h2{
+    color: #fff;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4a69bd;
+    margin-bottom: 15px;
+}
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+
+.title {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* 内容区域样式 */
+.content {
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.main-content,
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+h2 {
+    color: #2c3e50;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #4a69bd;
+    margin-bottom: 15px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.experience-item,
+.education-item {
+    margin-bottom: 20px;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.date {
+    color: #7f8c8d;
+    font-weight: normal;
+}
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    background: #eaf0f1;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.contact-info {
+    list-style: none;
+}
+
+.contact-info li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.contact-info li::before {
+    content: "•";
+    color: #4a69bd;
+    font-weight: bold;
+    display: inline-block;
+    width: 20px;
+    font-size: 1.2rem;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-text {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    header {
+        padding: 30px 20px;
+    }
+}
+
+/* 首行缩进：仅对主要内容区域的段落生效；列表项使用 .li-text 控制以避免重复缩进 */
+.main-content p {
+    text-indent: 2em; /* 首行缩进 */
+    text-align: justify; /* 两端对齐 */
+}
+
+/* 列表内的文本包装在 .li-text（由脚本自动添加）以统一缩进控制 */
+.main-content .li-text {
+    display: block;
+    text-indent: 2em;
+    text-align: justify;
+}
+
+/* 列表圆点放在文字前面（outside），用 padding-left 调整整体缩进，使圆点与文字对齐 */
+.main-content ul {
+    list-style: none; /* 移除默认圆点 */
+    padding-left: 0; /* 去掉额外缩进，文字靠父容器缩进 */
+}
+
+/* 美化主要内容区域的列表符号（marker）颜色与大小 */
+.main-content li::marker {
+    color: #4a69bd;
+    font-weight: bold;
+    font-size: 1.05em;
+}
+
+/* --------- 视觉增强（炫酷但专业） --------- */
+/* 标题下划线渐变动画 */
+h2 {
+    position: relative;
+    overflow: visible;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 4px;
+    width: 0%;
+    background: linear-gradient(90deg, rgba(74,105,189,0.9), rgba(74,189,160,0.9));
+    border-radius: 4px;
+    transition: width 600ms cubic-bezier(.2,.8,.2,1);
+}
+
+/* 当 section 可见时展开下划线 */
+.section.visible h2::after {
+    width: 40%;
+}
+
+/* section 进入动画 */
+.section {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 500ms ease, transform 500ms ease;
+}
+.section.visible {
+    opacity: 1;
+    transform: none;
+}
+
+/* 列表使用左侧小方块作为引导标记（替代圆点），保留首行缩进 */
+.main-content ul {
+    list-style: none; /* 已去掉默认圆点 */
+    padding-left: 0;
+}
+/* .main-content li {
+
+/* 技能标签 hover 效果 */
+.skill-tag {
+    transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.skill-tag:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 8px 20px rgba(74,105,189,0.12);
+}
+
+/* 响应式：在小屏幕减小首行缩进与标记大小 */
+@media (max-width: 480px) {
+    .main-content p,
+    .main-content .li-text {
+        text-indent: 1.2em;
+    }
+    .main-content li::before {
+        width: 6px;
+        height: 6px;
+        top: 0.6em;
+    }
+}
+
+/* 渐变文本（用于句首的总体描述性语句） */
+.lead-text {
+    background: linear-gradient(90deg, #7fcffd, #4a9ef0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: #1e90ff; /* fallback color for non-supporting browsers */
+    -webkit-text-fill-color: transparent;
+    display: inline; /* avoid affecting first-line indentation */
+    font-weight: 600;
+}
+
+/* 教育背景中主修课程首行缩进 */
+.indent-first {
+    text-indent: 2em;
+}
+
+/* 保持 contact-info 的自定义样式不受影响 */
+.contact-info li {
+    text-indent: 0;
+    /* display 和 align-items 在上面已定义，无需重复，但明确写出以防覆盖 */
+    display: flex;
+    align-items: center;
+}
