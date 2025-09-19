@@ -44,11 +44,22 @@ header {
     object-fit: cover;
 }
 
+/* 包裹头像的容器，作为 flex 子元素约束其大小与对齐，避免意外换行 */
+.profile-img-wrap {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .profile-text {
-    width: 600px;
+    /* 使用弹性布局并限制最大宽度，避免固定宽度在打印或窄屏下出现问题 */
+    flex: 1 1 auto;
+    max-width: 620px;
     margin-left: 30px;
     display: flex;
     justify-content: space-between;
+    gap: 12px;
 }
 
 .name {
@@ -101,6 +112,166 @@ h1 {
 .title {
     font-size: 1.2rem;
     opacity: 0.9;
+}
+
+/* 打印友好样式：简化视觉、确保文本可见、移除阴影和动画 */
+@media print {
+    /* 基本布局简化为单列，适合纸张 */
+    body {
+        background: #fff !important;
+        color: #000 !important;
+        padding: 0 !important;
+    -webkit-print-color-adjust: exact; /* 尝试在支持的浏览器中打印背景色 */
+    print-color-adjust: exact;
+    }
+
+    .resume-container {
+        box-shadow: none !important;
+        background: #fff !important;
+        border-radius: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* 保留 header 的渐变背景与配色（前提是浏览器允许打印背景），但仍取消动画和阴影 */
+    header {
+        background: linear-gradient(135deg, #2c3e50, #4a69bd) !important;
+        color: #fff !important;
+        padding: 10px 0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* 确保顶部图片按比例缩放并不会超出页面 */
+    .profile-img {
+        width: 120px !important;
+        height: auto !important;
+        border: none !important;
+    }
+
+    /* 让内容在打印时以单列显示并根据 A4 纸设置宽度 */
+    .content {
+        display: block !important;
+        padding: 0 !important;
+    }
+
+    .main-content, .sidebar {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* A4 友好宽度：将容器限制为纸张内宽，避免超出边距 */
+    .resume-container {
+        max-width: 180mm !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    /* 打印时保留 header 为 flex 布局（与屏幕表现一致），但收紧间距与字体以适应 A4 */
+    .profile-info {
+        display: flex !important;
+        flex-wrap: nowrap !important; /* 在打印中尽量保持头像与文本同一行 */
+        align-items: center !important;
+        gap: 8px !important;
+        padding: 0 12px !important;
+    }
+
+    .profile-text {
+        margin-left: 12px !important;
+        max-width: none !important;
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        display: flex !important;
+        flex-direction: row !important; /* 保持 name/header-top 与 contact-info 在一行（当空间不足时 contact-info 可换行） */
+        align-items: center !important;
+        gap: 12px !important;
+        order: 0 !important;
+    }
+
+    .profile-img {
+        width: 80px !important; /* 适度缩小头像以帮助一行布局 */
+        height: 80px !important;
+        border: none !important;
+        flex: 0 0 auto !important;
+        margin-right: 10px !important;
+        order: 0 !important;
+        margin-top: 0 !important;
+    }
+
+    /* 联系方式不再强制横向一行；保留为列表但更紧凑，字体更小以减少占用 */
+    .profile-text .contact-info {
+        display: block !important; /* 保持原有垂直列表但紧凑 */
+        padding: 0 !important;
+        margin: 0 !important;
+        list-style: none !important;
+    }
+    .profile-text .contact-info li {
+        display: block !important;
+        margin: 2px 0 !important;
+        font-size: 11px !important;
+        line-height: 1.1 !important;
+    }
+
+    /* 减小 header 内的主标题和联系方式字号，帮助在 A4 宽度内一行展示 */
+    header h1 {
+        font-size: 18px !important;
+        margin: 0 !important;
+    }
+    header .lianxi h2 {
+        font-size: 12px !important;
+        margin: 0 !important;
+    }
+
+    /* 取消动画、阴影（视觉表现保留）但保留背景、marker 等视觉元素以接近屏幕效果 */
+    .section, .skill-tag, .main-content li::before, h2::after {
+        transition: none !important;
+        box-shadow: none !important;
+        /* 保留背景/伪元素显示以接近屏幕效果 */
+    }
+
+    /* 尽量保留 lead-text 的渐变，如果浏览器不打印背景则回退到黑色 */
+    .lead-text {
+        background: linear-gradient(90deg, #7fcffd, #4a9ef0) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
+        color: #1e90ff !important; /* fallback */
+    }
+
+    /* 打印时隐藏 header 的装饰伪元素，避免溢出或印刷异常 */
+    .header-top::before,
+    .header-top::after,
+    .name::after,
+    .lianxi::before {
+        display: none !important;
+        opacity: 0 !important;
+    }
+
+    /* 在打印时保证 profile-img-wrap 不被压缩，保持其与文本同列显示 */
+    .profile-img-wrap {
+        flex: 0 0 auto !important;
+        margin-right: 12px !important;
+    }
+
+    /* 强制文本区域在打印时可缩小以避免换行；并为头像容器指定固定基准宽度 */
+    .profile-text {
+        flex: 1 1 auto !important;
+        min-width: 0 !important; /* 允许在空间受限时缩小，不致导致换行 */
+    }
+
+    .profile-img-wrap {
+        flex: 0 0 110px !important; /* 在打印里为头像保留固定宽度，避免它被独占一行 */
+    }
+
+    /* 打印时保留首行缩进，但避免过大的缩进 */
+    .main-content p, .main-content .li-text, .indent-first {
+        text-indent: 1.2em !important;
+        text-align: justify !important;
+        color: #000 !important;
+    }
+
+    /* 修复页眉和页脚空间，防止被裁切 */
+    @page { margin: 12mm; }
 }
 
 /* 内容区域样式 */
